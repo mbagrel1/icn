@@ -1,0 +1,13 @@
+<img src="[logo] (importée)" width="834" height="183" border="0" usemap="#map" />
+
+<map name="map">
+<!-- #$-:Image map file created by GIMP Image Map plug-in -->
+<!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+<!-- #$-:Please do not edit lines starting with "#$" -->
+<!-- #$VERSION:2.3 -->
+<!-- #$AUTHOR:Marie BAGREL -->
+<area shape="rect" coords="59,30,124,141" href="http://linux.html" />
+<area shape="rect" coords="278,41,361,136" href="http://windows.html" />
+<area shape="rect" coords="510,38,616,140" href="http://apple.html" />
+<area shape="rect" coords="729,39,794,142" href="http://android.html" />
+</map>

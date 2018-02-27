@@ -1,0 +1,17 @@
+.titre
+{
+    font-size: 60px;
+     text-shadow:1px 1px 2px white;
+     color: #FFFFFF;
+
+    background-image:url(circuit.jpg);
+    background-size:300px
+}
+.annonce
+{
+	color: white;
+	background-image:url(noir.jpg);
+	background-size:300px;
+}
+
+{}

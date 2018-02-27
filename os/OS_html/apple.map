@@ -1,0 +1,10 @@
+<img src="apple.png" width="180" height="180" border="0" usemap="#map" />
+
+<map name="map">
+<!-- #$-:Image map file created by GIMP Image Map plug-in -->
+<!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+<!-- #$-:Please do not edit lines starting with "#$" -->
+<!-- #$VERSION:2.3 -->
+<!-- #$AUTHOR:Marie BAGREL -->
+<area shape="rect" coords="56,62,116,127" href="http://apple.html" />
+</map>
