@@ -3,7 +3,7 @@
 import gtk
 
 mot_a_trouver = "chat"
-ESSAIS_MAX = 6
+ESSAIS_MAX = 10
 compteur = 0
 mot_affiche = "*" * len(mot_a_trouver)
 
@@ -11,6 +11,9 @@ fin = False
 gagne = False
 
 # interface
+
+def when_fin_true(widget):
+	image_pendu.set_from_file(champagne.jpeg)
 
 
 def when_button_valider_lettre_is_clicked(widget):
@@ -21,6 +24,7 @@ def when_button_valider_lettre_is_clicked(widget):
     global labe_mot_affiche
     global gagne
     n_mot_affiche = ""
+   
     trouve = False
     essai = essai_lettre.get_text()
     for i in range(len(mot_a_trouver)):
@@ -42,7 +46,10 @@ def when_button_valider_lettre_is_clicked(widget):
         print "vous avez gagne"
     if compteur == ESSAIS_MAX:
         fin = True
-        print "vous avez perdu"
+        when_fin_true
+    essai = essai_lettre.set_text("")
+    essai_lettre.grab_focus()
+
 
 
 def when_button_valider_mot_is_clicked(widget):
