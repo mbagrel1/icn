@@ -1,72 +1,163 @@
 #/usr/bin/env python2
 
 import gtk
+import random
+liste_mots = [
+    "chat",
+    "cochon",
+    "belier",
+    "chien",
+    "lezard",
+]
 
-mot_a_trouver = "chat"
-ESSAIS_MAX = 10
+mot_a_trouver = random.choice(liste_mots)
+ESSAIS_MAX = 9
 compteur = 0
 mot_affiche = "*" * len(mot_a_trouver)
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+liste_lettres = []
 
 fin = False
 gagne = False
 
-# interface
 
-def when_fin_true(widget):
-	image_pendu.set_from_file(champagne.jpeg)
+def mon_str(chaine):
+    result = ""
+    for lettre in chaine:
+        result += lettre + " "
+    return result
+
+
+def gerer_fin_du_jeu(p_gagne):
+    if p_gagne:
+        image_pendu.set_from_file("champagne.gif")
+        label_mot_affiche.set_text("Bravo ! Vous avez gagne !")
+    else:
+        image_pendu.set_from_file("loser.jpg")
+        label_mot_affiche.set_text("vous avez perdu")
 
 
 def when_button_valider_lettre_is_clicked(widget):
-    """verifie si l'essai de lettre est dans le mot"""
+
     global compteur
     global mot_affiche
     global fin
     global labe_mot_affiche
     global gagne
-    n_mot_affiche = ""
-   
-    trouve = False
+    global liste_lettres
+
     essai = essai_lettre.get_text()
+    essai_lettre.grab_focus()
+    essai_lettre.set_text("")
+
+    if not essai:
+        return
+
+    if essai not in ALPHABET:
+        return
+
+    if fin:
+        return
+
+    if essai in liste_lettres:
+        return
+
+    if essai not in mot_a_trouver:
+        liste_lettres.append(essai)
+        label_lettres.set_text(mon_str(liste_lettres))
+        compteur += 1
+        if compteur == ESSAIS_MAX:
+            fin = True
+            gagne = False
+            gerer_fin_du_jeu(gagne)
+        else:
+            image_pendu.set_from_file(str(compteur) + ".png")
+        return
+    # Tout le monde est gentil
+
+    liste_lettres.append(essai)
+    label_lettres.set_text(mon_str(liste_lettres))
+
+    n_mot_affiche = ""
     for i in range(len(mot_a_trouver)):
         if mot_a_trouver[i] == essai:
             n_mot_affiche = n_mot_affiche + essai
-            trouve = True
         else:
             n_mot_affiche = n_mot_affiche + mot_affiche[i]
-    if not trouve:
-        compteur = compteur + 1
-        nom_image = str(compteur) + ".png"
-        image_pendu.set_from_file(nom_image)
     mot_affiche = n_mot_affiche
     label_mot_affiche.set_text(mot_affiche)
 
     if mot_a_trouver == mot_affiche:
         fin = True
         gagne = True
-        print "vous avez gagne"
-    if compteur == ESSAIS_MAX:
-        fin = True
-        when_fin_true
-    essai = essai_lettre.set_text("")
-    essai_lettre.grab_focus()
+        gerer_fin_du_jeu(gagne)
 
+
+def key_pressed(widget, event):
+    keyval = event.keyval
+    keyval_name = gtk.gdk.keyval_name(keyval)
+    if keyval_name == "Return":
+        when_button_valider_lettre_is_clicked(widget)
 
 
 def when_button_valider_mot_is_clicked(widget):
-    print "Hello World"
 
+    global compteur
+    global mot_affiche
+    global fin
+    global labe_mot_affiche
+    global gagne
+    global liste_lettres
+
+    mot = entree_mot.get_text()
+    essai_lettre.grab_focus()
+    entree_mot.set_text("")
+
+    if not mot:
+        return
+
+    for lettre in mot:
+        if lettre not in ALPHABET:
+            return
+
+    if fin:
+        return
+
+    if mot != mot_a_trouver:
+        compteur += 1
+        if compteur == ESSAIS_MAX:
+            fin = True
+            gagne = False
+            gerer_fin_du_jeu(gagne)
+        else:
+            image_pendu.set_from_file(str(compteur) + ".png")
+        return
+    # Tout le monde est gentil
+
+    fin = True
+    gagne = True
+    gerer_fin_du_jeu(gagne)
+
+
+#interface
 
 interface = gtk.Builder()
 interface.add_from_file('interface.glade')
 
 fenetre = interface.get_object('fenetre')
 fenetre.connect('delete-event', gtk.main_quit)
+fenetre.connect("key-press-event", key_pressed)
+
+label_lettres = interface.get_object('label_lettres')
+label_lettres.set_text("Ici les lettres precedentes.")
 
 label_mot_affiche = interface.get_object('label_mot_affiche')
-print(label_mot_affiche)
+label_mot_affiche.set_text(mot_affiche)
+
 
 button_valider_lettre = interface.get_object('button_valider_lettre')
 button_valider_lettre.connect('clicked', when_button_valider_lettre_is_clicked)
+
 
 essai_lettre = interface.get_object('essai_lettre')
 
