@@ -2,20 +2,24 @@
 
 import gtk
 import random
-liste_mots = [
-    "chat",
-    "cochon",
-    "belier",
-    "chien",
-    "lezard",
-]
+
+
+with open("liste_mots.txt", "r") as fichier:
+    liste_mots = [
+        ligne.strip()
+        for ligne in fichier.readlines()
+        if ligne.strip()
+    ]
+
 
 mot_a_trouver = random.choice(liste_mots)
-ESSAIS_MAX = 9
+print mot_a_trouver
+ESSAIS_MAX = 10
 compteur = 0
 mot_affiche = "*" * len(mot_a_trouver)
-ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 liste_lettres = []
+
 
 fin = False
 gagne = False
@@ -30,10 +34,12 @@ def mon_str(chaine):
 
 def gerer_fin_du_jeu(p_gagne):
     if p_gagne:
-        image_pendu.set_from_file("champagne.gif")
+        label_lettres.set_text("c'etait bien : " + mot_a_trouver)
+        image_pendu.set_from_file("52179.gif")
         label_mot_affiche.set_text("Bravo ! Vous avez gagne !")
     else:
-        image_pendu.set_from_file("loser.jpg")
+        label_lettres.set_text("c'etait : " + mot_a_trouver)
+        image_pendu.set_from_file("pick.gif")
         label_mot_affiche.set_text("vous avez perdu")
 
 
@@ -55,6 +61,8 @@ def when_button_valider_lettre_is_clicked(widget):
 
     if essai not in ALPHABET:
         return
+
+    essai = essai.upper()
 
     if fin:
         return
@@ -119,6 +127,7 @@ def when_button_valider_mot_is_clicked(widget):
     for lettre in mot:
         if lettre not in ALPHABET:
             return
+    mot = mot.upper()
 
     if fin:
         return
@@ -139,7 +148,7 @@ def when_button_valider_mot_is_clicked(widget):
     gerer_fin_du_jeu(gagne)
 
 
-#interface
+# interface
 
 interface = gtk.Builder()
 interface.add_from_file('interface.glade')
