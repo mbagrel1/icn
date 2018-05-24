@@ -13,7 +13,6 @@ with open("liste_mots.txt", "r") as fichier:
 
 
 mot_a_trouver = random.choice(liste_mots)
-print mot_a_trouver
 ESSAIS_MAX = 10
 compteur = 0
 mot_affiche = "*" * len(mot_a_trouver)
@@ -35,11 +34,11 @@ def mon_str(chaine):
 def gerer_fin_du_jeu(p_gagne):
     if p_gagne:
         label_lettres.set_text("c'etait bien : " + mot_a_trouver)
-        image_pendu.set_from_file("52179.gif")
+        image_pendu.set_from_file("feux.gif")
         label_mot_affiche.set_text("Bravo ! Vous avez gagne !")
     else:
         label_lettres.set_text("c'etait : " + mot_a_trouver)
-        image_pendu.set_from_file("pick.gif")
+        image_pendu.set_from_file("perdu.gif")
         label_mot_affiche.set_text("vous avez perdu")
 
 

@@ -106,13 +106,24 @@
           </packing>
         </child>
         <child>
-          <object class="GtkImage" id="image_pendu">
+          <object class="GtkVBox" id="vbox2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="pixbuf">0.png</property>
+            <child>
+              <object class="GtkImage" id="image_pendu">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="pixbuf">0.png</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
