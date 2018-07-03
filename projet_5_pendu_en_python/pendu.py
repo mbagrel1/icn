@@ -1,4 +1,4 @@
-#/usr/bin/env python2
+R#/usr/bin/env python2
 
 import gtk
 import random
@@ -38,7 +38,7 @@ def gerer_fin_du_jeu(p_gagne):
         label_mot_affiche.set_text("Bravo ! Vous avez gagne !")
     else:
         label_lettres.set_text("c'etait : " + mot_a_trouver)
-        image_pendu.set_from_file("perdu.gif")
+        image_pendu.set_from_file("pik.gif")
         label_mot_affiche.set_text("vous avez perdu")
 
 
